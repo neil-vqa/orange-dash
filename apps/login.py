@@ -15,8 +15,8 @@ layout = html.Div([
                             dbc.Card(
                                 [
                                     html.H4('Login',className='card-title'),
-                                    dbc.Input(id='login-email',placeholder='Email (try "admin@mail.com")', n_submit=0),
-                                    dbc.Input(id='login-password',placeholder='Password (try "password")',type='password', n_submit=0, className='mt-2'),
+                                    dbc.Input(id='login-email',placeholder='Email (try "admin@mail.com")'),
+                                    dbc.Input(id='login-password',placeholder='Password (try "password")',type='password', className='mt-2'),
                                     dbc.Button('Submit',id='login-button',color='success',block=True, className='mt-4'),
                                 ],
                                 body=True
@@ -31,13 +31,11 @@ layout = html.Div([
 ])
 @app.callback(
 	Output('login-url','pathname'),
-	[Input('login-email','n_submit'),
-	Input('login-password','n_submit'),
-	Input('login-button','n_clicks')],
+	[Input('login-button','n_clicks')],
 	[State('login-email','value'),
 	State('login-password','value')]
 )
-def success(n_clicks,emailsubmit,passwordsubmit,email,password):
+def success(n_clicks,email,password):
 	user = User.query.filter_by(email=email).first()
 	if user:
 		if user.password == password:
