@@ -7,7 +7,7 @@ from app import app, User
 from flask_login import login_user
 
 layout = html.Div([
-	       dcc.Location(id='login-url',refresh=False),
+	       dcc.Location(id='login-url',refresh=True),
             dbc.Container(
                 [
                     dbc.Row(
