@@ -85,26 +85,39 @@ def toggle_collapse(n, is_open):
 	[Input("url", "pathname")]
 )
 def render_page_content(pathname):
-	if pathname == "/home":
-		if current_user.is_authenticated:
+#	if pathname == "/home":
+#		if current_user.is_authenticated:
+#			return home.layout
+#		else:
+#			return login.layout   
+#	elif pathname == "/apps/technical":
+#		if current_user.is_authenticated:
+#			return technical.layout
+#		else:
+#			return login.layout
+#	elif pathname == "/apps/resources":
+#		if current_user.is_authenticated:
+#			return resources.layout
+#		else:
+#			return login.layout
+#	elif pathname == '/logout':
+#		if current_user.is_authenticated:
+#			logout_user()
+#			return login.layout
+#		else:
+#			return login.layout
+#	else:
+#		return login.layout
+		
+	if current_user.is_authenticated:
+		if pathname == "/home":
 			return home.layout
-		else:
-			return login.layout   
-	elif pathname == "/apps/technical":
-		if current_user.is_authenticated:
+		elif pathname == "/apps/technical":
 			return technical.layout
-		else:
-			return login.layout
-	elif pathname == "/apps/resources":
-		if current_user.is_authenticated:
+		elif pathname == "/apps/resources":
 			return resources.layout
-		else:
-			return login.layout
-	elif pathname == '/logout':
-		if current_user.is_authenticated:
+		elif pathname == '/logout':
 			logout_user()
-			return login.layout
-		else:
 			return login.layout
 	else:
 		return login.layout
