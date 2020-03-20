@@ -5,6 +5,7 @@ from dash import no_update
 from dash.dependencies import Input, Output, State
 from app import app, User
 from flask_login import login_user
+from werkzeug.security import check_password_hash
 
 layout = html.Div([
 	       dcc.Location(id='login-url',refresh=True),
@@ -38,7 +39,7 @@ layout = html.Div([
 def success(n_clicks,email,password):
 	user = User.query.filter_by(email=email).first()
 	if user:
-		if user.password == password:
+		if check_password_hash(user.password, password):
 			login_user(user)
 			return '/home'
 		else:
