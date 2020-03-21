@@ -15,19 +15,20 @@ layout = html.Div([
                         dbc.Col(
                             dbc.Card(
                                 [
-                                    html.H4('Login',className='card-title'),
-                                    dbc.Input(id='login-email',placeholder='Email (try "admin@mail.com")'),
-                                    dbc.Input(id='login-password',placeholder='Password (try "password")',type='password', className='mt-2'),
-                                    dbc.Button('Submit',id='login-button',color='success',block=True, className='mt-4'),
+                                    html.H4('Login to your account',className='card-title'),
+                                    dbc.Input(id='login-email',placeholder='Email (try "associate@mail.com")'),
+                                    dbc.Input(id='login-password',placeholder='Password (try "password123")',type='password', className='mt-2'),
+                                    dbc.Button('Login',id='login-button',color='success',block=True, className='mt-4'),
                                 ],
                                 body=True
                             ),
-                            md=6
+                            md=6,
+                            align="start"
                         ),
-                        justify='center',
+                        justify='left',
                         style = {'height':'94vh'}
                     )
-                ]
+                ],className='pl-0 ml-0'
             )	
 ])
 @app.callback(
