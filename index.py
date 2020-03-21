@@ -9,7 +9,7 @@ from flask_login import logout_user, current_user
 
 sidebar_header = dbc.Row(
 	[
-		dbc.Col(html.H5("An Orange, Inc.", className="h5", style={'color':'#ffffff'})),
+		dbc.Col(html.H5(id="display-user", className="h5", style={'color':'#ffffff'})),
 		dbc.Col(
 			html.Button(
 				html.Span(className="navbar-toggler-icon"),
@@ -20,6 +20,7 @@ sidebar_header = dbc.Row(
 			width="auto",
 			align="center",
 		),
+		html.Div(id='dummy',style={"display":"none"})
 	]
 )
 
@@ -35,10 +36,10 @@ sidebar = html.Div(
         dbc.Collapse(
             dbc.Nav(
                 [
-                    dbc.NavLink([html.I(id='home-button',className='fas fa-chart-line fa-3x')], href="/home", id="page-1-link",style={'color':'#ffffff'}),
-                    dbc.NavLink([html.I(id='technical-button',className='fas fa-file-alt fa-3x')], href="/apps/technical", id="page-2-link",style={'color':'#ffffff'}),
-                    dbc.NavLink([html.I(id='resources-button',className='fas fa-info-circle fa-3x')], href="/apps/resources", id="page-3-link",style={'color':'#ffffff'}),
-                    dbc.NavLink([html.I(id='logout-button',className='fas fa-sign-out-alt fa-2x')], href="/logout", id="logout-link",style={'color':'#ffffff'}, className='mt-5'),
+                    dbc.NavLink([html.I(id='home-button',className='fas fa-chart-line fa-3x', title='Dashboard Home')], href="/home", id="page-1-link",style={'color':'#ffffff'}),
+                    dbc.NavLink([html.I(id='technical-button',className='fas fa-file-alt fa-3x', title='Technical')], href="/apps/technical", id="page-2-link",style={'color':'#ffffff'}),
+                    dbc.NavLink([html.I(id='resources-button',className='fas fa-info-circle fa-3x', title='Resources')], href="/apps/resources", id="page-3-link",style={'color':'#ffffff'}),
+                    dbc.NavLink([html.I(id='logout-button',className='fas fa-sign-out-alt fa-2x', title='Logout')], href="/logout", id="logout-link",style={'color':'#ffffff'}, className='mt-5'),
                 ],
                 vertical=True,
                 pills=True,
@@ -47,14 +48,13 @@ sidebar = html.Div(
         ),
     ],
     id="sidebar",
-    style={'backgroundColor':'#e95420'}
 )
 
-content = html.Div(id="page-content", style={'backgroundColor':'#cac5c0',})
+content = html.Div(id="page-content")
 
 
 def serve_layout():
-	return html.Div([dcc.Location(id="url"), sidebar, content])
+	return html.Div([dcc.Location(id="url"), sidebar, content], style={'backgroundColor':'#cac5c0'})
 
 app.layout = serve_layout
 
@@ -81,22 +81,26 @@ def toggle_collapse(n, is_open):
 
 # this is where linking to other apps happen
 @app.callback(
-	Output("page-content", "children"), 
+	[Output("sidebar",component_property='style'),
+	Output("page-content", "children"),
+	Output("display-user","children")], 
 	[Input("url", "pathname")]
 )
-def render_page_content(pathname):	
+def render_page_content(pathname):
+	default_name = "An Orange, Inc."	
 	if current_user.is_authenticated:
+		name = str(current_user.username)
 		if pathname in ["/home","/"]:
-			return home.layout
+			return {'backgroundColor':'#e95420'},home.layout, name
 		elif pathname == "/apps/technical":
-			return technical.layout
+			return {'backgroundColor':'#e95420'},technical.layout, name
 		elif pathname == "/apps/resources":
-			return resources.layout
+			return {'backgroundColor':'#e95420'},resources.layout, name
 		elif pathname == '/logout':
 			logout_user()
-			return login.layout
+			return {'transform':'scale(0)'},login.layout, default_name
 	else:
-		return login.layout
+		return {'transform':'scale(0)'},login.layout, default_name
 
 
 if __name__ == "__main__":
