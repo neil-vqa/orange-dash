@@ -16,7 +16,7 @@ layout = dbc.Container([
 				html.P("""Each of the 3 charts of the upper section shows the intra-day price movement of MSFT, AAPL, and GOOGL
 						respectively by 1-minute intervals."""),
 				html.P("The Moving Average has a window = 60."),
-				html.P("Note: All charts on the Home Dashboard section are automatically updated every 3 minutes.")
+				html.P("Note: All charts on the Dashboard Home section are automatically updated every 2 minutes.")
 			]),
 		md=6),
 		dbc.Col(
