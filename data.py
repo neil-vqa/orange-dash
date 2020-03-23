@@ -1,8 +1,5 @@
 import pandas as pd
 import numpy as np
-from iexfinance.stocks import get_market_most_active
-from iexfinance.stocks import get_market_gainers
-from iexfinance.stocks import get_market_losers
 import yfinance as yf
 
 
