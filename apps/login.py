@@ -15,12 +15,15 @@ layout = html.Div([
                         dbc.Col(
                             dbc.Card(
                                 [
-                                    html.H4('Login to your account',className='card-title'),
+                                	 html.H4('An Orange Company in the Future, Inc.'),
+                                	 html.Hr(),
+                                    html.H5('Login to your account'),
                                     dbc.Input(id='login-email',placeholder='Email (try "associate@mail.com")'),
                                     dbc.Input(id='login-password',placeholder='Password (try "password123")',type='password', className='mt-2'),
                                     dbc.Button('Login',id='login-button',color='success',block=True, className='mt-4'),
                                 ],
-                                body=True
+                                body=True,
+                                className='shadow-lg'
                             ),
                             md=6,
                             align="start"
