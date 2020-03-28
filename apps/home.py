@@ -37,7 +37,7 @@ layout = dcc.Loading(html.Div(
 
 	], className='mt-4'),
 	]
-),type='graph',color='#38b44a')
+),type='circle',color='#ffffff')
 		     
 @app.callback(
 	[Output('card1','figure'),
