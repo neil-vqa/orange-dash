@@ -6,7 +6,7 @@ import plotly.graph_objects as do
 from app import app
 from data import data_parse
 
-layout = html.Div(
+layout = dcc.Loading(html.Div(
 	[
 	dbc.Row([
 		dbc.Col([
@@ -37,7 +37,8 @@ layout = html.Div(
 
 	], className='mt-4'),
 	]
-)
+),type='graph',color='#38b44a')
+		     
 @app.callback(
 	[Output('card1','figure'),
 	Output('card2','figure'),
